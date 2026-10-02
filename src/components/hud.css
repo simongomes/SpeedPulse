@@ -1,0 +1,325 @@
+.hud {
+  --cyan: #4de9f0;
+  --slate: #607079;
+  --mist: #a7b7be;
+  --ice: #f4fafc;
+  --amber: #ffb857;
+  --steel: #314149;
+  --red: #ff625f;
+  --mint: #58e6b5;
+  --panel: #071014;
+  --ink: #101c22;
+  --line: rgba(183, 205, 213, 0.16);
+
+  width: min(960px, 100%);
+  padding: 20px 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  color: var(--ice);
+  font-family: Inter, 'SF Pro Display', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.hud svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rpm-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rpm-readout,
+.rpm-scale,
+.gear-mode,
+.status-label,
+.meter-label,
+.meter-values {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+}
+
+.rpm-value {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.rpm-unit {
+  margin-left: 7px;
+  color: var(--slate);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.rpm-scale {
+  gap: 8px;
+  color: var(--slate);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.rpm-dot,
+.gear-dot {
+  color: var(--slate);
+}
+
+.rpm-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 36px;
+}
+
+.rpm-seg {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 2px;
+}
+
+.rpm-seg-active {
+  background: var(--cyan);
+}
+
+.rpm-seg-idle {
+  background: var(--steel);
+}
+
+.rpm-seg-warn {
+  background: var(--amber);
+}
+
+.rpm-seg-red {
+  background: var(--red);
+}
+
+.cluster {
+  display: grid;
+  grid-template-columns: auto auto auto auto minmax(0, 1fr);
+  align-items: center;
+  margin-top: 26px;
+}
+
+.cluster-rule {
+  width: 1px;
+  height: 78px;
+  margin: 0 16px;
+  background: rgba(167, 183, 190, 0.22);
+}
+
+.speed {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.speed-value,
+.gear-value {
+  color: var(--ice);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+}
+
+.speed-value {
+  font-size: 80px;
+}
+
+.speed-unit {
+  color: var(--mist);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.gear {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 78px;
+}
+
+.gear-label {
+  color: var(--slate);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.gear-value {
+  margin: 6px 0 8px;
+  font-size: 68px;
+}
+
+.gear-mode {
+  gap: 5px;
+  color: var(--slate);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.gear-drive {
+  color: var(--cyan);
+}
+
+.meters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.meter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 7px;
+}
+
+.meter-label {
+  gap: 8px;
+  color: var(--mist);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.meter-cyan .meter-label svg {
+  color: var(--cyan);
+  font-size: 16px;
+}
+
+.meter-green .meter-label svg {
+  color: var(--mint);
+  font-size: 16px;
+}
+
+.meter-values {
+  gap: 10px;
+}
+
+.meter-percent {
+  color: var(--ice);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.meter-detail {
+  color: var(--slate);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.meter-track {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(49, 65, 73, 0.95);
+}
+
+.meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.meter-cyan .meter-fill {
+  background: var(--cyan);
+}
+
+.meter-green .meter-fill {
+  background: var(--mint);
+}
+
+.statuses {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 86px;
+  color: var(--cyan);
+}
+
+.status.is-framed {
+  border: 1px solid var(--cyan);
+  border-radius: 14px;
+  background: rgba(16, 28, 34, 0.72);
+}
+
+.status-amber {
+  color: var(--amber);
+}
+
+.status-amber.is-framed {
+  border-color: var(--amber);
+  background: var(--ink);
+}
+
+.status-muted {
+  color: var(--slate);
+}
+
+.status-muted.is-framed {
+  border-color: var(--slate);
+}
+
+.status-mark {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+}
+
+.status-label {
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.status-state {
+  color: currentColor;
+}
+
+@media (max-width: 680px) {
+  .cluster {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cluster-rule {
+    display: none;
+  }
+
+  .statuses {
+    grid-template-columns: 1fr 1fr;
+  }
+}
