@@ -11,8 +11,8 @@
   --ink: #101c22;
   --line: rgba(183, 205, 213, 0.16);
 
-  width: min(960px, 100%);
-  padding: 20px 22px 18px;
+  width: min(620px, 100%);
+  padding: 16px 16px 14px;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: var(--panel);
@@ -20,6 +20,8 @@
   font-family: Inter, 'SF Pro Display', system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   user-select: none;
+  /* FiveM CEF / Chromium: shrink layout + glyphs together */
+  zoom: 0.5;
 }
 
 .hud svg {
@@ -37,7 +39,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .rpm-readout,
@@ -79,16 +81,17 @@
 }
 
 .rpm-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-  height: 36px;
+  display: grid;
+  align-items: stretch;
+  gap: 2px;
+  height: 28px;
 }
 
 .rpm-seg {
-  flex: 1 1 0;
+  width: 100%;
   min-width: 0;
-  border-radius: 2px;
+  height: 100%;
+  border-radius: 1px;
 }
 
 .rpm-seg-active {
@@ -108,23 +111,25 @@
 }
 
 .cluster {
-  display: grid;
-  grid-template-columns: auto auto auto auto minmax(0, 1fr);
+  display: flex;
   align-items: center;
-  margin-top: 26px;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .cluster-rule {
   width: 1px;
-  height: 78px;
-  margin: 0 16px;
+  height: 64px;
+  margin: 0;
+  flex-shrink: 0;
   background: rgba(167, 183, 190, 0.22);
 }
 
 .speed {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .speed-value,
@@ -136,12 +141,12 @@
 }
 
 .speed-value {
-  font-size: 80px;
+  font-size: 72px;
 }
 
 .speed-unit {
   color: var(--mist);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -151,7 +156,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 78px;
+  flex-shrink: 0;
+  min-width: 52px;
 }
 
 .gear-label {
@@ -162,16 +168,16 @@
 }
 
 .gear-value {
-  margin: 6px 0 8px;
-  font-size: 68px;
+  margin: 2px 0 4px;
+  font-size: 60px;
 }
 
 .gear-mode {
-  gap: 5px;
+  gap: 4px;
   color: var(--slate);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
 .gear-drive {
@@ -181,7 +187,9 @@
 .meters {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  gap: 10px;
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -189,8 +197,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 7px;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
 .meter-label {
@@ -217,7 +225,7 @@
 
 .meter-percent {
   color: var(--ice);
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -225,7 +233,7 @@
 
 .meter-detail {
   color: var(--slate);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -254,8 +262,8 @@
 .statuses {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 22px;
+  gap: 6px;
+  margin-top: 18px;
 }
 
 .status {
@@ -263,14 +271,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 86px;
+  gap: 0;
+  min-height: 56px;
+  padding: 8px 4px;
   color: var(--cyan);
 }
 
 .status.is-framed {
   border: 1px solid var(--cyan);
-  border-radius: 14px;
+  border-radius: 10px;
   background: rgba(16, 28, 34, 0.72);
 }
 
@@ -294,14 +303,18 @@
 .status-mark {
   display: flex;
   align-items: center;
-  font-size: 22px;
+  font-size: 26px;
+}
+
+.status-icon-only .status-mark {
+  font-size: 26px;
 }
 
 .status-label {
-  gap: 5px;
-  font-size: 10px;
+  gap: 4px;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   white-space: nowrap;
 }
 
@@ -311,12 +324,16 @@
 
 @media (max-width: 680px) {
   .cluster {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .cluster-rule {
     display: none;
+  }
+
+  .meters {
+    flex: 1 1 100%;
   }
 
   .statuses {

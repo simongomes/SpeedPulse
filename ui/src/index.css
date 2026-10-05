@@ -10,14 +10,21 @@ body,
 
 body {
   margin: 0;
-  background: #000;
+  background: transparent;
   color: #f4fafc;
   font-family: Inter, 'SF Pro Display', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* Dark stage only for local Vite preview */
+body.dev {
+  background: #000;
 }
 
 .stage {
   min-height: 100vh;
   display: grid;
-  place-items: center;
-  padding: 40px 24px 64px;
+  place-items: end end;
+  padding: 20px 24px 32px;
+  pointer-events: none;
 }
