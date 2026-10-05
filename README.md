@@ -12,23 +12,69 @@ A [FiveM](https://fivem.net) speedometer built with React, TypeScript, and Vite.
 - Speed, gear, fuel range, and engine temperature
 - Turn signals, seat belt, lights, and lock, each controlled by an `active` flag
 
-## Getting started
+## Resource layout
 
-```bash
-npm install
-npm run dev
+```
+SpeedPulse/
+  fxmanifest.lua
+  client/main.lua       NUI visibility + vehicle telemetry
+  server/main.lua       Server entry (hooks later)
+  shared/config.lua     Tunables (units, interval, redline)
+  ui/                   React + Vite NUI project
+    src/
+      components/
+      app.tsx
+      types.ts
+    dist/               Built NUI (required in-game)
 ```
 
-Open the local URL Vite prints, usually `http://127.0.0.1:5173`.
+## Install (FiveM)
 
-## Scripts
+1. Place this folder in your server `resources` directory (already under `[local]` is fine).
+2. Build the UI once:
 
-| Command        | What it does                       |
-| -------------- | ---------------------------------- |
-| `npm run dev`     | Start the dev server               |
-| `npm run build`   | Typecheck and build for production |
-| `npm run preview` | Preview the production build       |
-| `npm run lint`    | Run ESLint                         |
+```bash
+cd ui
+yarn install
+yarn build
+```
+
+3. Ensure `server.cfg` (or your resources list) includes:
+
+```cfg
+ensure SpeedPulse
+```
+
+4. Restart the resource or the server.
+
+## UI development
+
+```bash
+cd ui
+yarn install
+yarn dev
+```
+
+Open the local URL Vite prints, usually `http://127.0.0.1:5173`. The browser preview uses mock HUD data. In-game, `client/main.lua` pushes live updates via `SendNUIMessage`.
+
+| Command       | What it does                       |
+| ------------- | ---------------------------------- |
+| `yarn dev`    | Start the Vite dev server          |
+| `yarn build`  | Typecheck and build into `ui/dist` |
+| `yarn preview`| Preview the production build       |
+| `yarn lint`   | Run ESLint                         |
+
+## Config
+
+Edit `shared/config.lua`:
+
+| Key                 | Default | Meaning                                      |
+| ------------------- | ------- | -------------------------------------------- |
+| `UpdateInterval`    | `100`   | Client → NUI refresh rate (ms)               |
+| `UseMetric`         | `true`  | `true` = KM/H, `false` = MPH                 |
+| `Redline`           | `7.5`   | Redline shown on the RPM scale (x1000)       |
+| `HideWhenOnFoot`    | `true`  | Hide HUD when not in a vehicle               |
+| `DriverOnly`        | `true`  | Only show for the driver seat                |
 
 ## Cluster
 
@@ -48,26 +94,3 @@ Status icons take `active`:
 | Seat belt         | Blue, **SEAT BELT** | Yellow, **SEAT BELT** |
 | Lights            | Blue, **LIGHTS ON** | Gray, **LIGHTS OFF**  |
 | Lock              | Blue, **LOCKED**    | Gray, **UNLOCKED**    |
-
-```tsx
-<TurnLeftIcon active={false} />
-<SeatBeltIcon active={false} />
-<LightsIcon active={true} />
-<LockIcon active={false} />
-<TurnRightIcon active={false} />
-```
-
-## Project layout
-
-```
-src/
-  components/
-    hud.tsx            Cluster layout
-    rpm_bar.tsx        RPM scale
-    speed_readout.tsx  Speed
-    gear_readout.tsx   Gear
-    meter.tsx          Fuel and engine bars
-    icons.tsx          Indicator icons
-    status_chip.tsx    Indicator frame
-    hud.css
-```

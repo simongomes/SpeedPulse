@@ -20,6 +20,8 @@
   font-family: Inter, 'SF Pro Display', system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   user-select: none;
+  /* FiveM CEF / Chromium: shrink layout + glyphs together */
+  zoom: 0.5;
 }
 
 .hud svg {

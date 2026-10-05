@@ -11,39 +11,42 @@ import { GearReadout } from "./gear_readout";
 import { Meter } from "./meter";
 import { RpmBar } from "./rpm_bar";
 import { SpeedReadout } from "./speed_readout";
+import type { HudData } from "../types";
 import "./hud.css";
 
-const indicators = {
-  leftTurn: false,
-  rightTurn: false,
-  seatBelt: false,
-  lights: true,
-  locked: false,
+type HudProps = {
+  data: HudData;
 };
 
-export function Hud() {
+export function Hud({ data }: HudProps) {
+  const { indicators } = data;
+
   return (
     <section className="hud" aria-label="Vehicle cluster">
-      <RpmBar rpm={0.3} redline={7.5} />
+      <RpmBar rpm={data.rpm} redline={data.redline} />
 
       <div className="cluster">
-        <SpeedReadout speed={128} unit="KM/H" />
+        <SpeedReadout speed={data.speed} unit={data.unit} />
         <span className="cluster-rule" aria-hidden="true" />
-        <GearReadout gear={4} drive="D" transmission="AUTO" />
+        <GearReadout
+          gear={data.gear}
+          drive={data.drive}
+          transmission={data.transmission}
+        />
         <span className="cluster-rule" aria-hidden="true" />
         <div className="meters">
           <Meter
             icon={<FuelIcon />}
             label="FUEL"
-            percent={68}
-            detail="286 KM"
+            percent={data.fuel.percent}
+            detail={data.fuel.detail}
             tone="cyan"
           />
           <Meter
             icon={<EngineIcon />}
             label="ENGINE"
-            percent={96}
-            detail="104°C"
+            percent={data.engine.percent}
+            detail={data.engine.detail}
             tone="green"
           />
         </div>
