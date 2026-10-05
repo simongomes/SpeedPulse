@@ -28,18 +28,12 @@ function segmentTone(
   return "active";
 }
 
-function segmentHeight(index: number, segments: number): number {
-  if (segments <= 1) return 1;
-  const t = index / (segments - 1);
-  return 0.3 + t * 0.7;
-}
-
 export function RpmBar({
   rpm,
   redline,
-  segments = 24,
-  warnSegments = 4,
-  redSegments = 4,
+  segments = 20,
+  warnSegments = 3,
+  redSegments = 3,
 }: RpmBarProps) {
   const redStart = segments - redSegments;
   const warnStart = redStart - warnSegments;
@@ -50,7 +44,6 @@ export function RpmBar({
 
   const bars = Array.from({ length: segments }, (_, index) => ({
     tone: segmentTone(index, filled, warnStart, redStart),
-    height: segmentHeight(index, segments),
   }));
 
   return (
@@ -68,13 +61,13 @@ export function RpmBar({
           <span>REDLINE {redline.toFixed(1)}</span>
         </p>
       </div>
-      <div className="rpm-bars" aria-hidden="true">
+      <div
+        className="rpm-bars"
+        aria-hidden="true"
+        style={{ gridTemplateColumns: `repeat(${segments}, minmax(0, 1fr))` }}
+      >
         {bars.map((bar, index) => (
-          <span
-            key={index}
-            className={`rpm-seg rpm-seg-${bar.tone}`}
-            style={{ height: `${bar.height * 100}%` }}
-          />
+          <span key={index} className={`rpm-seg rpm-seg-${bar.tone}`} />
         ))}
       </div>
     </div>

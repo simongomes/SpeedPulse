@@ -83,8 +83,9 @@ export function TurnLeftIcon({ active }: ActiveIconProps) {
   return (
     <StatusChip
       icon={<TurnLeftMark />}
-      state={active ? 'ON' : 'OFF'}
       tone={active ? 'cyan' : 'muted'}
+      iconOnly
+      aria-label={active ? 'Left turn signal on' : 'Left turn signal off'}
     />
   )
 }
@@ -93,8 +94,9 @@ export function TurnRightIcon({ active }: ActiveIconProps) {
   return (
     <StatusChip
       icon={<TurnRightMark />}
-      state={active ? 'ON' : 'OFF'}
       tone={active ? 'cyan' : 'muted'}
+      iconOnly
+      aria-label={active ? 'Right turn signal on' : 'Right turn signal off'}
     />
   )
 }
@@ -103,8 +105,9 @@ export function SeatBeltIcon({ active }: ActiveIconProps) {
   return (
     <StatusChip
       icon={<SeatBeltMark />}
-      state="SEAT BELT"
       tone={active ? 'cyan' : 'amber'}
+      iconOnly
+      aria-label={active ? 'Seat belt on' : 'Seat belt off'}
     />
   )
 }
@@ -113,8 +116,9 @@ export function LightsIcon({ active }: ActiveIconProps) {
   return (
     <StatusChip
       icon={<LightsMark />}
-      state={active ? 'LIGHTS ON' : 'LIGHTS OFF'}
       tone={active ? 'cyan' : 'muted'}
+      iconOnly
+      aria-label={active ? 'Lights on' : 'Lights off'}
     />
   )
 }
@@ -123,8 +127,9 @@ export function LockIcon({ active }: ActiveIconProps) {
   return (
     <StatusChip
       icon={<LockMark locked={active} />}
-      state={active ? 'LOCKED' : 'UNLOCKED'}
       tone={active ? 'cyan' : 'muted'}
+      iconOnly
+      aria-label={active ? 'Locked' : 'Unlocked'}
     />
   )
 }
